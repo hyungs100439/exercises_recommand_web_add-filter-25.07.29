@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>추천 결과</title>
+</head>
+<body>
+  <h2>{{ goal }} / {{ env }} / {{ body }} 에 맞는 추천 운동</h2>
+
+  {% if exercises %}
+    <ul>
+    {% for name, link, kcal, noise in exercises %}
+      <li>
+        <h3>{{ name }}</h3>
+        <p>
+          10분 기준 {{ kcal }} kcal 소모 |
+          소음: {{ noise }}
+        </p>
+        <img src="{{ url_for('static', filename='images/' + name + '.png') }}" 
+             alt="{{ name }}" width="200"
+             onerror="this.style.display='none'"><br>
+        <a href="{{ link }}" target="_blank">설명 영상 보기</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>추천할 운동이 없습니다.</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('index') }}">다시 추천받기</a>
+</body>
+</html>
